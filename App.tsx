@@ -33,7 +33,7 @@ const App = () => {
 const styles = StyleSheet.create({
   contenidor: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row-reverse',
     borderColor:'purple',
     borderWidth:5,
   },
