@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
+import {StatusBar, Text, View} from 'react-native';
 import {Button, HelperText, TextInput} from 'react-native-paper';
+import styles from './assets/styles/styles';
 
 const App = () => {
   const [peso, setPeso] = useState('');
@@ -8,7 +9,7 @@ const App = () => {
   const [pesoError, setPesoError] = useState('');
   const [alturaError, setAlturaError] = useState('');
   const [imc, setImc] = useState(0);
-  const resultat = {missatge: '', color: ''};
+  const [resultat, setResultat] = useState({ missatge: '', color: '' });
 
   const entradaCorrecta = (unPes) => {
     const expresReg = /^\d+\.\d+$|^\d+$/;
@@ -30,7 +31,7 @@ const App = () => {
 
   const CalculaIMC = () => {
     let pesoCalc = parseFloat(peso);
-    let alturaCalc = parseFloat(altura) / 100;
+    let alturaCalc = parseFloat(altura);
 
     const imc = pesoCalc / (alturaCalc * alturaCalc);
 
@@ -64,12 +65,11 @@ const App = () => {
     }
 
     setImc(imc);
-    resultat.missatge = mensaje;
-    resultat.color = color;
+    setResultat({ missatge: mensaje, color: color });
   };
 
   const handleChangeInputPes = (text) => {
-    if (entradaCorrecta(text) && parseFloat(text) >= 0) {
+    if (entradaCorrecta(text)) {
       setPeso(text);
       setPesoError('');
     } else {
@@ -79,11 +79,11 @@ const App = () => {
   };
 
   const handleChangeInputAltura = (text) => {
-    if (entradaCorrecta(text) && parseFloat(text) >= 0) {
+    if (entradaCorrecta(text)) {
       setAltura(text);
       setAlturaError('');
     } else {
-      setPeso(text);
+      setAltura(text);
       setAlturaError('Ingrese un valor numérico positivo');
     }
   };
@@ -116,7 +116,7 @@ const App = () => {
           <View style={styles.sectionDataText}>
             <TextInput
               style={styles.textInput}
-              placeholder="cm"
+              placeholder="m"
               onChangeText={handleChangeInputAltura}
               value={altura}
               keyboardType="numeric"
@@ -133,58 +133,5 @@ const App = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  all: {
-    flex: 1,
-  },
-  sectionTitle: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '600',
-    textAlign: 'center',
-    color: 'black',
-  },
-  dades: {
-    fontSize: 20,
-    color: 'black',
-  },
-  textInput: {
-    margin: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    fontSize: 15,
-    textAlign: 'center',
-  },
-  sectionData: {
-    flex: 2,
-  },
-  sectionDataConcrete: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  sectionDataText: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  sectionCalcula: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    fontSize: 20,
-  },
-  sectionResult: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default App;
