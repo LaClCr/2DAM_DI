@@ -10,7 +10,7 @@ const App = () => {
   const [imc, setImc] = useState(0);
   const resultat = {missatge: '', color: ''};
 
-  const entradaCorrecta = unPes => {
+  const entradaCorrecta = (unPes) => {
     const expresReg = /^\d+\.\d+$|^\d+$/;
     return expresReg.test(unPes);
   };
@@ -68,7 +68,7 @@ const App = () => {
     resultat.color = color;
   };
 
-  const handleChangeInputPes = text => {
+  const handleChangeInputPes = (text) => {
     if (entradaCorrecta(text) && parseFloat(text) >= 0) {
       setPeso(text);
       setPesoError('');
@@ -78,7 +78,7 @@ const App = () => {
     }
   };
 
-  const handleChangeInputAltura = text => {
+  const handleChangeInputAltura = (text) => {
     if (entradaCorrecta(text) && parseFloat(text) >= 0) {
       setAltura(text);
       setAlturaError('');
